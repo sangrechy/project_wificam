@@ -27,14 +27,16 @@
 
 ---
 
-## 🛠️ Installation & Setup
+````
+
+### 🛠️ Installation & Setup
 
 ### 1️⃣ Clone the Repository
 
 ```bash
 git clone https://github.com/sangrechy/project_wificam.git
 cd project_wificam/app
-````
+```
 
 ### 2️⃣ Install Dependencies
 
