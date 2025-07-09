@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mobile Camera</title>
+</head>
+<body>
+  <h2>Mobile Camera</h2>
+  <video autoplay playsinline muted style="width: 100%; max-width: 400px;"></video>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const peer = new RTCPeerConnection();
+
+    const video = document.querySelector('video');
+
+    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+      .then(stream => {
+        video.srcObject = stream;
+        stream.getTracks().forEach(track => peer.addTrack(track, stream));
+      }).catch(console.error);
+
+    peer.onicecandidate = event => {
+      if (event.candidate) {
+        socket.emit('ice-candidate', event.candidate);
+      }
+    };
+
+    peer.onnegotiationneeded = async () => {
+      try {
+        const offer = await peer.createOffer();
+        await peer.setLocalDescription(offer);
+        socket.emit('offer', offer);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    socket.on('answer', async answer => {
+      try {
+        await peer.setRemoteDescription(answer);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    socket.on('ice-candidate', async candidate => {
+      try {
+        await peer.addIceCandidate(candidate);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

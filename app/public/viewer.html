@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Viewer</title>
+</head>
+<body>
+  <h2>Viewer</h2>
+  <video autoplay playsinline controls style="width: 100%; max-width: 600px;"></video>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const peer = new RTCPeerConnection();
+
+    const video = document.querySelector('video');
+
+    peer.onicecandidate = event => {
+      if (event.candidate) {
+        socket.emit('ice-candidate', event.candidate);
+      }
+    };
+
+    peer.ontrack = event => {
+      video.srcObject = event.streams[0];
+    };
+
+    socket.on('offer', async offer => {
+      try {
+        await peer.setRemoteDescription(offer);
+        const answer = await peer.createAnswer();
+        await peer.setLocalDescription(answer);
+        socket.emit('answer', answer);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    socket.on('ice-candidate', async candidate => {
+      try {
+        await peer.addIceCandidate(candidate);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
