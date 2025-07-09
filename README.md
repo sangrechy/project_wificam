@@ -49,7 +49,7 @@ Mobile Camera Streaming is a lightweight web app that allows real-time video str
 
 ```bash
 git clone https://github.com/sangrechy/project_wificam.git
-cd project_wificam
+cd project_wificam/app
 ```
 
 ### 📦 Install Dependencies
