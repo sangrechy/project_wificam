@@ -1,137 +1,141 @@
-# project_wificam
+# 📷 WiFiCam — Mobile Camera Streaming over Wi-Fi
 
+WiFiCam is a simple web application that streams live video from a mobile device to another device using **WebRTC** and **Socket.IO**.
 
+It can be used for camera streaming over a local Wi-Fi network or through an optional Ngrok tunnel.
 
-````markdown
-# 📷 WiFiCam – Mobile Camera Streaming over Wi-Fi
+## ✨ Features
 
-**WiFiCam** is a simple web app that enables real-time video streaming from a mobile device to another device using WebRTC and Socket.IO. It is ideal for LAN-based peer-to-peer streaming or remote viewing via Ngrok tunneling.
+* 📱 Live camera streaming from a mobile device
+* 🔁 Real-time WebRTC communication
+* 🌐 View the camera from another device
+* 🚀 Optional remote access using Ngrok
 
-🔗 GitHub Repository: [https://github.com/sangrechy/project_wificam](https://github.com/sangrechy/project_wificam)
+## 🛠️ Requirements
 
----
+* [Node.js](https://nodejs.org/)
+* A mobile device with a camera
+* Devices connected to the same Wi-Fi network
 
-## 📦 Features
+## 📥 Installation
 
-- 📱 Capture and stream live video from your mobile device
-- 🔁 Real-time communication using WebRTC
-- 🌐 View stream remotely from another device on the same network
-- 🚀 Optional: Access from anywhere using Ngrok
-
----
-
-## 📋 Requirements
-
-- ✅ [Node.js](https://nodejs.org/)
-- No prior global installations required
-
----
-
-````
-
-### 🛠️ Installation & Setup
-
-### 1️⃣ Clone the Repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/sangrechy/project_wificam.git
 cd project_wificam/app
 ```
 
-### 2️⃣ Install Dependencies
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+If dependencies are not already listed in `package.json`:
 
 ```bash
 npm install express socket.io
 ```
 
-> `path`, `fs`, `os` are built-in Node.js modules and **do not need to be installed**
+> `path`, `fs`, and `os` are built-in Node.js modules.
 
----
+## 📁 Project Structure
 
-## 📁 Folder Structure
-
-```txt
+```text
 project_wificam/
-│
-├── /app
-│   ├── server.js              # Express + Socket.IO signaling server
-│   ├── /public
-│   │   ├── mobile.html        # Camera streaming client (mobile side)
-│   │   ├── viewer.html        # Viewer client (to watch the stream)
-│
+├── app/
+│   ├── server.js
+│   └── public/
+│       ├── mobile.html
+│       └── viewer.html
 ├── README.md
-├── LICENSE
+└── LICENSE
 ```
 
-> ⚠️ Make sure `mobile.html` and `viewer.html` are located inside the `/public` directory.
+Make sure `mobile.html` and `viewer.html` are inside the `public` folder.
 
----
+## ▶️ Start the Server
 
-## ▶️ Run the Server
+Run:
 
 ```bash
 node server.js
 ```
 
-You’ll see something like:
+You should see:
 
-```txt
+```text
 Server running on http://localhost:3000
 ```
 
-Open in your browser:
+Find the local IP address of the computer running the server.
 
-* On mobile device: `http://<your-local-ip>:3000/mobile.html`
-* On viewer device: `http://<your-local-ip>:3000/viewer.html`
+Then open:
 
-> 💡 Use your LAN IP (e.g., `192.168.x.x`) — **not `localhost`** — to connect across devices.
+**Mobile:**
 
----
+```text
+http://<your-local-ip>:3000/mobile.html
+```
 
-## 🌐 Access from Outside Network (via Ngrok)
+**Viewer:**
 
-Sometimes devices on different networks or mobile browsers cannot access your local IP directly. Use Ngrok to tunnel your server publicly:
+```text
+http://<your-local-ip>:3000/viewer.html
+```
+
+Example:
+
+```text
+http://192.168.1.5:3000/mobile.html
+http://192.168.1.5:3000/viewer.html
+```
+
+> Use the computer's LAN IP instead of `localhost` when connecting from another device.
+
+## 🌐 Remote Access with Ngrok
+
+To access the application from outside the local network:
 
 ```bash
 ngrok http 3000
 ```
 
-Ngrok will give you a public HTTPS URL like:
+Ngrok will provide a public HTTPS address.
 
+Use:
+
+```text
+https://your-ngrok-url/mobile.html
 ```
-https://abcd-1234.ngrok.io
+
+on the mobile device and:
+
+```text
+https://your-ngrok-url/viewer.html
 ```
 
-Use these links:
+on the viewer device.
 
-* Mobile device: `https://abcd-1234.ngrok.io/mobile.html`
-* Viewer device: `https://abcd-1234.ngrok.io/viewer.html`
+Both devices should use the same Ngrok URL.
 
-> ⚠️ Make sure **both devices use the Ngrok link**, not local IP, in this mode.
+## 🔐 Security
 
----
+This project is intended mainly for testing and LAN streaming.
 
-## 🔐 Security Notes
+For production use, consider adding:
 
-* This is a demo app intended for LAN streaming
-* In production:
-
-  * Use HTTPS + Secure WebSocket (WSS)
-  * Restrict access with authentication
-  * Add logging and rate-limiting as needed
-
----
+* HTTPS/WSS
+* User authentication
+* Access control
+* Rate limiting
+* Proper logging
 
 ## 📜 License
 
-This project is licensed under the **MIT License**
+This project is licensed under the **MIT License**.
 
----
+## 🔗 Repository
 
-> 🎥 Built for fast and secure peer-to-peer camera streaming over Wi-Fi.
-
-```
-
----
-
-```
+https://github.com/sangrechy/project_wificam
