@@ -23,7 +23,7 @@ It can be used for camera streaming over a local Wi-Fi network or through an opt
 
 ```bash
 git clone https://github.com/sangrechy/project_wificam.git
-cd project_wificam/app
+cd project_wificam/v1
 ```
 
 ### 2. Install dependencies
@@ -44,16 +44,18 @@ npm install express socket.io
 
 ```text
 project_wificam/
-├── app/
+├── v1/
+│   ├── package.json
 │   ├── server.js
 │   └── public/
 │       ├── mobile.html
 │       └── viewer.html
+├── .gitignore
 ├── README.md
 └── LICENSE
 ```
 
-Make sure `mobile.html` and `viewer.html` are inside the `public` folder.
+Make sure `mobile.html` and `viewer.html` are inside the `v1/public` folder.
 
 ## ▶️ Start the Server
 
